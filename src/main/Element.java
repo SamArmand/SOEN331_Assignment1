@@ -9,12 +9,18 @@
 
 package main;
 
-public class Element<S> {
+class Element<S> {
 
-	public final S data;
-	
-	public Element(S data) {
+	private final S data;
+
+	Element(S data) {
 		this.data = data;
+	}
+
+	public String toString() {
+
+		return data.toString();
+
 	}
 	
 }

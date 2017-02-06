@@ -11,11 +11,14 @@ package main;
 
 import java.util.ArrayList;
 
-public class Edge<Y> { 
-	  public final ArrayList<Vertex> edge; 
-	  public Y element; 
-	  public Edge(ArrayList<Vertex> edge, Y element) { 
-	    this.edge = edge; 
-	    this.element = element; 
-	  } 
-	} 
+class Edge<Y> {
+
+	final ArrayList<Vertex> edge;
+	Y element;
+
+	Edge(ArrayList<Vertex> edge, Y element) {
+		this.edge = edge;
+		this.element = element;
+	}
+
+}

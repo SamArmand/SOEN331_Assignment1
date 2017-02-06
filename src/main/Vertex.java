@@ -9,11 +9,9 @@
 
 package main;
 
-public class Vertex {
+class Vertex {
 	
-	public Vertex() {
+	Vertex() {
 
 	}
-	
-	
 }

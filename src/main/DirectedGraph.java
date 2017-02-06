@@ -11,32 +11,23 @@ package main;
 
 import java.util.ArrayList;
 
-public class DirectedGraph<S> extends Graph<S> {
+class DirectedGraph<S> extends Graph<S> {
 
-	private ArrayList<Edge<S>> directedEdgesSet;
+	private ArrayList<Edge<S>> directedEdgesSet = new ArrayList<>();
 	
-	public DirectedGraph() {
-		
-		directedEdgesSet = new ArrayList<Edge<S>>();
-		
-	}
-	
-	public DirectedGraph<S> insertDirectedEdge(Vertex v, Vertex w, S x) {
+	DirectedGraph<S> insertDirectedEdge(Vertex v, Vertex w, S element) {
 		
 		insertVertex(v);
 		insertVertex(w);
+
+		for (Edge<S> directedEdge : directedEdgesSet)
+			if (directedEdge.edge.get(0) == v && directedEdge.edge.get(1) == w) return this;
 		
-		for (int i = 0; i < directedEdgesSet.size(); i++) {
-			if (directedEdgesSet.get(i).edge.get(0) == v && directedEdgesSet.get(i).edge.get(1) == w) {
-				return this;
-			}
-		}
-		
-		ArrayList<Vertex> edge = new ArrayList<Vertex>();
+		ArrayList<Vertex> edge = new ArrayList<>();
 		edge.add(v);
 		edge.add(w);
 		
-		Edge<S> newEdge = new Edge<S>(edge, x);
+		Edge<S> newEdge = new Edge<>(edge, element);
 		
 		directedEdgesSet.add(newEdge);
 		
@@ -44,49 +35,48 @@ public class DirectedGraph<S> extends Graph<S> {
 		
 	}
 	
-	public ArrayList<Edge<S>> incomingEdgesOf(Vertex v) {
+	ArrayList<Edge<S>> incomingEdgesOf(Vertex v) {
 		
-		ArrayList<Edge<S>> list = new ArrayList<Edge<S>>();
-		
-		for (int i = 0; i < directedEdgesSet.size(); i++) {
-			if (directedEdgesSet.get(i).edge.get(1) == v)
-				list.add(directedEdgesSet.get(i));
-		}
+		ArrayList<Edge<S>> list = new ArrayList<>();
+
+		for (Edge<S> directedEdge : directedEdgesSet)
+			if (directedEdge.edge.get(1) == v)
+				list.add(directedEdge);
 		
 		return list;
 		
 	}
 	
-	public int inDegreeOf(Vertex v) {
+	int inDegreeOf(Vertex v) {
 		
 		return incomingEdgesOf(v).size();
 		
 	}
 	
-	public int outDegreeOf(Vertex v) {
+	int outDegreeOf(Vertex v) {
 		
 		return outgoingEdgesOf(v).size();
 		
 	}
 	
-	public ArrayList<Edge<S>> outgoingEdgesOf(Vertex v) {
+	ArrayList<Edge<S>> outgoingEdgesOf(Vertex v) {
 		
-		ArrayList<Edge<S>> list = new ArrayList<Edge<S>>();
-		
-		for (int i = 0; i < directedEdgesSet.size(); i++) {
-			if (directedEdgesSet.get(i).edge.get(0) == v)
-				list.add(directedEdgesSet.get(i));
+		ArrayList<Edge<S>> list = new ArrayList<>();
+
+		for (Edge<S> directedEdge : directedEdgesSet) {
+			if (directedEdge.edge.get(0) == v)
+				list.add(directedEdge);
 		}
 		
 		return list;
 		
 	}
 	
-	public Edge<S> getDirectedEdge(Vertex v, Vertex w) throws Exception {
-		
-		for(int i = 0; i < directedEdgesSet.size(); i++) {
-			if (directedEdgesSet.get(i).edge.get(0) == v && directedEdgesSet.get(i).edge.get(1) == w)
-				return directedEdgesSet.get(i);
+	Edge<S> getDirectedEdge(Vertex v, Vertex w) throws Exception {
+
+		for (Edge<S> directedEdge : directedEdgesSet) {
+			if (directedEdge.edge.get(0) == v && directedEdge.edge.get(1) == w)
+				return directedEdge;
 		}
 		
 		throw new Exception("No such edge.");
